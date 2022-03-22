@@ -1,0 +1,92 @@
+plugins {
+    id 'org.springframework.boot' version "2.6.3"
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+    id 'jacoco'
+    id "org.sonarqube" version "3.3"
+    id "org.openapi.generator" version "5.3.1"
+    id "info.solidsoft.pitest" version "1.6.0"
+
+    id("org.openrewrite.rewrite") version("5.17.0")
+}
+
+group = 'org.mines'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
+
+apply plugin: 'java-library'
+
+rewrite {
+    activeRecipe("org.openrewrite.java.format.AutoFormat")
+    activeRecipe("org.openrewrite.java.RemoveUnusedImports")
+    exclusion('build/generated/**/*.java')
+}
+
+bootJar {
+    enabled = false
+}
+
+jar {
+    enabled = true
+}
+
+repositories {
+    mavenCentral()
+}
+
+
+subprojects {
+    pitest {
+        pitestVersion = "1.7.4"
+        failWhenNoMutations = false
+    }
+}
+
+task generateAddressApp(type: Tar) {
+    dependsOn 'build'
+    from("${projectDir}") {
+        include "address-app/**/"
+        exclude "address-app/**/out"
+        exclude "address-app/**/build"
+
+        include "build.gradle"
+        include "settings.gradle"
+        include "gradle.properties"
+        include "gradle/"
+        include "docker/"
+        include "examples/"
+        exclude "examples/build"
+        exclude "examples/out"
+    }
+
+    into "addressApp"
+    archiveName "addressApp.tar"
+}
+
+task generateForestApp(type: Tar) {
+    dependsOn 'build'
+    from("${projectDir}") {
+        include "forest-app/**/"
+        exclude "forest-app/**/out"
+        exclude "forest-app/**/build"
+        exclude "forest-app/build-forest.gradle"
+        exclude "forest-app/settings-forest.gradle"
+
+        include "gradle.properties"
+        include "gradle/"
+    }
+
+    from("${projectDir}/forest-app") {
+        include "build-forest.gradle"
+        include "settings-forest.gradle"
+        rename "build-forest.gradle", "build.gradle"
+        rename "settings-forest.gradle", "settings.gradle"
+    }
+
+    into "forestApp"
+    archiveName "forestApp.tar"
+}
+
+build.finalizedBy(generateAddressApp)
+build.finalizedBy(generateForestApp)

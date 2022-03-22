@@ -1,0 +1,85 @@
+apply plugin: 'java'
+apply plugin: 'jacoco'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'java-library'
+apply plugin: 'jacoco'
+apply plugin: "info.solidsoft.pitest"
+
+repositories {
+    mavenCentral()
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+ext {
+    springBootVersion = "2.6.1"
+    postgresVersion = "42.3.2"
+    flywayVersion = "8.4.4"
+    hsqldbVersion = "2.6.1"
+    commonDbcpVersion = "2.9.0"
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testCompileOnly("org.springframework:spring-test:5.3.15")
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+    testImplementation("org.springframework.boot:spring-boot-starter-test:2.6.3")
+
+    testImplementation group: 'org.mockito', name: 'mockito-core', version: '4.3.1'
+    testImplementation group: 'org.mockito', name: 'mockito-junit-jupiter', version: '4.3.1'
+
+}
+
+test {
+    useJUnitPlatform()
+    finalizedBy jacocoTestReport
+}
+
+jacocoTestReport {
+    dependsOn test // tests are required to run before generating the report
+
+    reports {
+        html.enabled true
+        xml.enabled true
+        xml.destination file("${buildDir}/reports/jacoco/report.xml")
+    }
+}
+
+
+sonarqube {
+
+    properties {
+        property "sonar.java.coveragePlugin", "jacoco"
+        property "sonar.login", "6fcedd98a82d683292668d5f84fb4b1153d44877"
+        property "sonar.coverage.jacoco.xmlReportPaths", "./build/reports/jacoco/report.xml"
+    }
+
+}
+
+pitest {
+    junit5PluginVersion = '0.15'
+    threads = 4
+    pitestVersion = "1.7.4"
+    failWhenNoMutations = false
+
+
+    targetClasses = ["org.sam.mines.*"]
+    testPlugin = "junit5"
+    outputFormats = ['XML', 'HTML']
+    timestampedReports = false
+    timeoutConstInMillis = 6000
+    excludedTestClasses = ['*.*Config']
+}
+
+tasks.withType(JavaCompile) {
+    options.compilerArgs += "--enable-preview"
+}
+tasks.withType(Test) {
+    jvmArgs += "--enable-preview"
+}
+tasks.withType(JavaExec) {
+    jvmArgs += "--enable-preview"
+}

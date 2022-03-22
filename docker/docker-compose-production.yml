@@ -1,0 +1,18 @@
+version: '3.9'
+
+services:
+  db:
+    ports:
+      - 5432:5432
+    image: postgres
+    environment:
+      POSTGRES_USER: mines
+      POSTGRES_PASSWORD: mines
+      POSTGRES_DB: mines
+
+  app:
+    ports:
+      - 8080:8080
+    image: address-app
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/mines

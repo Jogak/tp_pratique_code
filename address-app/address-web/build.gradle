@@ -1,0 +1,13 @@
+apply plugin: 'org.springframework.boot'
+apply from: "${rootDir}/gradle/backend-java.gradle"
+
+dependencies{
+    api(project(":address-app:address-api"))
+    api(project(":address-app:address-service"))
+    implementation('org.springframework.boot:spring-boot-starter-web')
+    implementation('org.springframework.boot:spring-boot-starter-data-jpa')
+
+    testImplementation("org.springframework.boot:spring-boot-starter-test") {
+        exclude group: "junit"
+    }
+}

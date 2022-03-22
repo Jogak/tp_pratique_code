@@ -1,0 +1,15 @@
+rootProject.name = 'mines'
+
+include ':examples'
+
+include ':address-app:address-api'
+include ':address-app:address-model'
+include ':address-app:address-persistence'
+include ':address-app:address-service'
+include ':address-app:address-web'
+
+include ':forest-app:forest-api'
+include ':forest-app:forest-model'
+include ':forest-app:forest-persistence'
+include ':forest-app:forest-service'
+include ':forest-app:forest-web'

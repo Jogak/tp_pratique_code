@@ -1,0 +1,14 @@
+apply from: "${rootDir}/gradle/backend-java.gradle"
+
+dependencies{
+    api(project(":address-app:address-model"))
+
+    api "org.springframework.data:spring-data-jpa:${springBootVersion}"
+    api "org.postgresql:postgresql:${postgresVersion}"
+
+    api "org.flywaydb:flyway-core:${flywayVersion}"
+
+    testImplementation "org.hsqldb:hsqldb:${hsqldbVersion}"
+    testImplementation "org.apache.commons:commons-dbcp2:${commonDbcpVersion}"
+
+}

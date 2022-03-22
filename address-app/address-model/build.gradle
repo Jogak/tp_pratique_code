@@ -1,0 +1,10 @@
+apply from: "${rootDir}/gradle/backend-java.gradle"
+
+dependencies{
+
+    api "org.springframework.boot:spring-boot-starter-data-jpa:2.4.4"
+    api ("org.hibernate:hibernate-core:5.4.29.Final")
+    api ("org.hibernate:hibernate-validator:6.1.7.Final")
+
+
+}

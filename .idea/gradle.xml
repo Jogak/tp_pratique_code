@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleMigrationSettings" migrationVersion="1" />
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="delegatedBuild" value="true" />
+        <option name="testRunner" value="GRADLE" />
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="gradleJvm" value="openjdk-17" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/address-app" />
+            <option value="$PROJECT_DIR$/address-app/address-api" />
+            <option value="$PROJECT_DIR$/address-app/address-model" />
+            <option value="$PROJECT_DIR$/address-app/address-persistence" />
+            <option value="$PROJECT_DIR$/address-app/address-service" />
+            <option value="$PROJECT_DIR$/address-app/address-web" />
+            <option value="$PROJECT_DIR$/examples" />
+            <option value="$PROJECT_DIR$/forest-app" />
+            <option value="$PROJECT_DIR$/forest-app/forest-api" />
+            <option value="$PROJECT_DIR$/forest-app/forest-model" />
+            <option value="$PROJECT_DIR$/forest-app/forest-persistence" />
+            <option value="$PROJECT_DIR$/forest-app/forest-service" />
+            <option value="$PROJECT_DIR$/forest-app/forest-web" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>

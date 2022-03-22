@@ -1,0 +1,25 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: address
+  datasource:
+    url: jdbc:postgresql://localhost:5432/mines
+    password: mines
+    username: mines
+  jpa:
+    show-sql: true
+    properties:
+      hibernate.format_sql: true
+#      javax:
+#        persistence:
+#          schema-generation:
+#            database:
+#              action: create
+
+
+logging:
+  level:
+    org:
+     springframework:
+       web: DEBUG

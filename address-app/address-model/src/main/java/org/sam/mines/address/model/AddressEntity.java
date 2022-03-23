@@ -65,4 +65,5 @@ public class AddressEntity {
     public void setTargets(Set<TargetEntity> targets) {
         this.targets = targets;
     }
+
 }

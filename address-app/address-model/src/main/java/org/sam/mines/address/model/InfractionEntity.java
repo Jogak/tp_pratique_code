@@ -60,4 +60,8 @@ public class InfractionEntity {
     @JoinColumn(name = "condamnationid", referencedColumnName = "id")
     private CondamnationEntity comdamnation;
 
+    @Column
+    @JoinColumn(name = "criminalrecordid", referencedColumnName = "id")
+    private CriminalRecordEntity criminalRecordEntity;
+
 }

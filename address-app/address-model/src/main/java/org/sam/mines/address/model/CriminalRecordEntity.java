@@ -36,5 +36,7 @@ public class CriminalRecordEntity {
     @JoinColumn(name = "idnumber")
     private PersonEntity person;
 
+    @OneToOne
+    private CriminalRecordEntity criminalRecordEntity;
 
 }

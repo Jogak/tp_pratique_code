@@ -32,6 +32,14 @@ public class CondamnationEntity {
         return comdamnationDurationDay;
     }
 
+    public void setComdamnationDurationDay(int comdamnationDurationDay) {
+        this.comdamnationDurationDay = comdamnationDurationDay;
+    }
+
+    public void setInfractionEntity(InfractionEntity infractionEntity) {
+        this.infractionEntity = infractionEntity;
+    }
+
     public void setNumber(int number) {
         this.comdamnationDurationDay = number;
     }

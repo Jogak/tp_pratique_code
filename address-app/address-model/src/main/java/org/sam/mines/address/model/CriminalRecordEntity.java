@@ -10,7 +10,7 @@ import java.util.UUID;
 @Table(name = "person")
 public class CriminalRecordEntity {
     private UUID id;
-    private String number;
+    private String ref;
     private UUID idnumber;
 
 
@@ -27,10 +27,12 @@ public class CriminalRecordEntity {
         return id;
     }
 
-    @Column(name = "number")
-    public String getnumber() {
-        return number;
+    @Column(name = "ref")
+    public String getRef() {
+        return ref;
     }
+
+    public void setRef(String ref){ this.ref = ref; }
 
     @OneToOne
     @JoinColumn(name = "idnumber")

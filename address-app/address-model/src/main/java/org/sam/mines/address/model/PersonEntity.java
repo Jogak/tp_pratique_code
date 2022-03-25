@@ -29,25 +29,33 @@ public class PersonEntity {
         return id;
     }
 
-    @Column(name = "firstname")
+   @Column(name = "firstname")
     public String getFirstname() {
         return firstname;
     }
+
+    public void setFirstname(String firstname){ this.firstname = firstname; }
 
     @Column(name = "phonenumber")
     public String getPhonenumber() {
         return phonenumber;
     }
 
+    public void setPhonenumber(String phonenumber){ this.phonenumber = phonenumber;}
+
     @Column(name = "lastname")
     public String getLastname() {
         return lastname;
     }
 
+    public void setLastname(String lastname){ this.lastname = lastname; }
+
     @Column(name = "address")
     public String getAddress() {
         return address;
     }
+
+    public void setAddress(String address){this.address = address;}
 
     @OneToOne
     private  CriminalRecordEntity idCriminalRecord;

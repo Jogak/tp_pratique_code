@@ -31,8 +31,8 @@ services:
   jenkins:
     image: jenkins/jenkins
     volumes:
-    - /home/sam/IdeaProjects/mines2021:/var/jenkins_home/workspace/mines
-    - /home/sam/.sdkman/candidates/java/current:/usr/share/java16
+      - /home/sam/IdeaProjects/mines2021:/var/jenkins_home/workspace/mines
+      - /home/sam/.sdkman/candidates/java/current:/usr/share/java16
     environment:
       - JAVA_HOME=/usr/share/java16
     ports:

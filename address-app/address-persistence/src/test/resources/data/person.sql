@@ -1,0 +1,1 @@
+insert into person(uuid, firstname, lastname,phonenumber,address) VALUES ('fb74d086-5a4a-11e7-907b-a6006ad3dba0', 'Julia', 'Telli', '06XXXXXXXX', 'Montpellier');

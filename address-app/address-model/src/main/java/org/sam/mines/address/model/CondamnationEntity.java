@@ -7,15 +7,29 @@ import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
-@Table(name = "Condamnation")
+@Table(name = "condamnation")
 public class CondamnationEntity {
     private UUID id;
     private int comdamnationDurationDay;
     private int reprieveDurationDay;
     private float fine;
+    private int number;
+
+    @Column
+    public int getNumber() {
+        return number;
+    }
 
     public void setId(UUID id) {
         this.id = id;
+    }
+
+    public void setComdamnationDurationDay(int comdamnationDurationDay) {
+        this.comdamnationDurationDay = comdamnationDurationDay;
+    }
+
+    public void setInfractionEntity(InfractionEntity infractionEntity) {
+        this.infractionEntity = infractionEntity;
     }
 
     @Id
@@ -63,6 +77,11 @@ public class CondamnationEntity {
     }
 
 
+    public InfractionEntity getInfractionEntity() {
+        return infractionEntity;
+    }
+
     @OneToOne
     private InfractionEntity infractionEntity;
+
 }

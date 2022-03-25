@@ -7,19 +7,43 @@ import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
-@Table(name = "Infraction")
+@Table(name = "infraction")
 public class InfractionEntity {
     private UUID id;
     private String place;
     private String mobile;
     private String description;
+    private int number;
 
+    public void setNumber(int number) {
+        this.number = number;
+    }
+    @Column
+    public int getNumber() {
+        return number;
+    }
 
+    /*
+    public CondamnationEntity getComdamnation() {
+        return comdamnation;
+    }
+
+    public CriminalRecordEntity getCriminalRecordEntity() {
+        return criminalRecordEntity;
+    }*/
 
     public void setId(UUID id) {
         this.id = id;
     }
+    /*
+    public void setComdamnation(CondamnationEntity comdamnation) {
+        this.comdamnation = comdamnation;
+    }
 
+    public void setCriminalRecordEntity(CriminalRecordEntity criminalRecordEntity) {
+        this.criminalRecordEntity = criminalRecordEntity;
+    }
+    */
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
@@ -55,9 +79,13 @@ public class InfractionEntity {
     public void setDescription(String description) {
         this.description = description;
     }
-
-    @Column
+    /*
+    @OneToOne
     @JoinColumn(name = "condamnationid", referencedColumnName = "id")
     private CondamnationEntity comdamnation;
 
+    @OneToOne
+    @JoinColumn(name = "criminalrecordid", referencedColumnName = "id")
+    private CriminalRecordEntity criminalRecordEntity;
+    */
 }

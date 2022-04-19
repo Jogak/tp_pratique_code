@@ -3,6 +3,7 @@ package org.sam.mines.address.web.controller;
 import org.sam.mines.address.api.controller.InfractionApi;
 import org.sam.mines.address.api.model.Infraction;
 import org.sam.mines.address.api.model.Town;
+import org.sam.mines.address.model.InfractionEntity;
 import org.sam.mines.address.model.TownEntity;
 import org.sam.mines.address.service.InfractionService;
 import org.sam.mines.address.service.TownService;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.math.BigDecimal;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
@@ -23,7 +25,7 @@ import java.util.stream.Collectors;
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping
-public class InfractionController extends InfractionApi {
+public class InfractionController implements InfractionApi {
 
     private InfractionService infractionService;
 
@@ -34,46 +36,73 @@ public class InfractionController extends InfractionApi {
 
     @Override
     public ResponseEntity<Infraction> createinfractionlist(Infraction infraction) {
-        return InfractionApi.super.createinfractionlist(infraction);
+        InfractionEntity infractionEntity = infractionService.save(this.map(infraction));
+
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path(
+                "/{id}").buildAndExpand(infraction.getId()).toUri();
+
+        return ResponseEntity.created(uri).body(map(infractionEntity));
     }
 
     @Override
     public ResponseEntity<String> deleteinfractionid(String id) {
-        return InfractionApi.super.deleteinfractionid(id);
+        infractionService.delete(UUID.fromString(id));
+
+        return ResponseEntity.ok(id);
     }
 
     @Override
     public ResponseEntity<Infraction> getinfractionid(String id) {
-        return InfractionApi.super.getinfractionid(id);
+        try {
+            UUID uuid = UUID.fromString(id);
+
+            return infractionService.get(uuid)
+                    .map(this::map)
+                    .map(ResponseEntity::ok)
+                    .orElse(ResponseEntity.notFound().build());
+        } catch (IllegalArgumentException e) {
+            // Logger
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @Override
     public ResponseEntity<List<Infraction>> getinfractionlist() {
-        return InfractionApi.super.getinfractionlist();
+        return ResponseEntity.ok(infractionService.getAll().stream().map(this::map).collect(Collectors.toList()));
     }
 
     @Override
     public ResponseEntity<Infraction> updateinfractionlist(Infraction infraction) {
-        return InfractionApi.super.updateinfractionlist(infraction);
+        InfractionEntity modelInfraction = this.map(infraction);
+
+        if (infractionService.get(modelInfraction.getId()).isPresent()) {
+            return ResponseEntity.ok(this.map(infractionService.save(modelInfraction)));
+        }
+        else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 
 
-    private TownEntity map(Town town) {
-        return TownEntity.TownBuilder.aTown()
-                .withId(town.getId() == null ? null : UUID.fromString(town.getId()))
-                .withName(town.getName())
-                .withPostCode(Integer.parseInt(town.getPostCode()))
+    private InfractionEntity map(Infraction infraction) {
+        return InfractionEntity.InfractionBuilder.aInfraction()
+                .withId(infraction.getId() == null ? null : UUID.fromString(infraction.getId()))
+                .withDescription(infraction.getDescription())
+                .withMobile(infraction.getMobile())
+                .withPlace(infraction.getPlace())
+                .withNumber((infraction.getNumber().toBigInteger().intValue()))
                 .build();
     }
 
-    private Town map(TownEntity town) {
+    private Infraction map(InfractionEntity infractionEntity) {
 
-        Town apiTown = new Town();
-        apiTown.setId(town.getId().toString());
-        apiTown.setName(town.getName());
-        apiTown.setPostCode(String.valueOf(town.getPostCode()));
-
-        return apiTown;
+        Infraction infraction = new Infraction();
+        infraction.setNumber(BigDecimal.valueOf(infractionEntity.getNumber()));
+        infraction.setDescription(infractionEntity.getDescription());
+        infraction.setPlace(infractionEntity.getPlace());
+        infraction.setMobile(infractionEntity.getMobile());
+        infraction.setId(String.valueOf(infractionEntity.getId()));
+        return infraction;
     }
 }

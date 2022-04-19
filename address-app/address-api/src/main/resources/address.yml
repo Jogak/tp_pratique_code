@@ -206,7 +206,9 @@ components:
         - mobile
         - description
         - number
-      properties:<<
+      properties:
+        id:
+          type: string
         place:
           type: string
         mobile:

@@ -97,6 +97,96 @@ paths:
               schema:
                 type: string
                 description: ID of the deleted entity.
+  /infraction:
+    get:
+      summary: List all infraction
+      operationId: getinfractionlist
+      tags:
+        - infraction
+      responses:
+        '200':
+          description: An array of infractions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Infraction'
+    post:
+      summary: Create an infraction
+      operationId: createinfractionlist
+      tags:
+        - infraction
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Infraction'
+      responses:
+        '201':
+          description: Null response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Infraction'
+    put:
+      summary: Update an infraction
+      operationId: updateinfractionlist
+      tags:
+        - infraction
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Infraction'
+      responses:
+        '200':
+          description: Null response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Infraction'
+  /infraction/{id}:
+    get:
+      summary: Info for a specific infraction
+      operationId: getinfractionid
+      tags:
+        - infraction
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the infraction to retrieve
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Infraction"
+    delete:
+      tags:
+        - infraction
+      summary: Delete an infraction.
+      operationId: deleteinfractionid
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+      responses:
+        '204':
+          description: Infraction has been deleted.
+          content:
+            application/json:
+              schema:
+                type: string
+                description: ID of the deleted entity.
 components:
   schemas:
     Town:
@@ -110,3 +200,18 @@ components:
           type: string
         postCode:
           type: string
+    Infraction:
+      required:
+        - place
+        - mobile
+        - description
+        - number
+      properties:<<
+        place:
+          type: string
+        mobile:
+          type: string
+        description :
+          type : string
+        number:
+          type : number

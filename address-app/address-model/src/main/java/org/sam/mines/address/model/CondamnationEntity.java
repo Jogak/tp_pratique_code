@@ -4,6 +4,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -46,14 +47,6 @@ public class CondamnationEntity {
         return comdamnationDurationDay;
     }
 
-    public void setComdamnationDurationDay(int comdamnationDurationDay) {
-        this.comdamnationDurationDay = comdamnationDurationDay;
-    }
-
-    public void setInfractionEntity(InfractionEntity infractionEntity) {
-        this.infractionEntity = infractionEntity;
-    }
-
     public void setNumber(int number) {
         this.comdamnationDurationDay = number;
     }
@@ -76,12 +69,62 @@ public class CondamnationEntity {
         this.fine = fine;
     }
 
-
+    @OneToOne
     public InfractionEntity getInfractionEntity() {
         return infractionEntity;
     }
 
     @OneToOne
     private InfractionEntity infractionEntity;
+
+    public static final class CondamnationBuilder {
+        private UUID id;
+        private int comdamnationDurationDay;
+        private int reprieveDurationDay;
+        private float fine;
+        private int number;
+
+        private CondamnationBuilder() {
+        }
+
+        public static CondamnationEntity.CondamnationBuilder aCondamnation() {
+            return new CondamnationBuilder();
+        }
+
+        public CondamnationEntity.CondamnationBuilder withId(UUID id) {
+            this.id = id;
+            return this;
+        }
+
+        public CondamnationEntity.CondamnationBuilder withCondamnationDurationDay(int comdamnationDurationDay) {
+            this.comdamnationDurationDay = comdamnationDurationDay;
+            return this;
+        }
+
+        public CondamnationEntity.CondamnationBuilder withReprieveDurationDay(int reprieveDurationDay) {
+            this.reprieveDurationDay = reprieveDurationDay;
+            return this;
+        }
+
+        public CondamnationEntity.CondamnationBuilder withFine(float fine) {
+            this.fine = fine;
+            return this;
+        }
+
+        public CondamnationEntity.CondamnationBuilder withNumber(int number) {
+            this.number = number;
+            return this;
+        }
+
+        public CondamnationEntity build() {
+            var condamnationEntity = new CondamnationEntity();
+            condamnationEntity.setId(id);
+            condamnationEntity.setComdamnationDurationDay(comdamnationDurationDay);
+            condamnationEntity.setReprieveDurationDay(reprieveDurationDay);
+            condamnationEntity.setFine(fine);
+            condamnationEntity.setNumber(number);
+            return condamnationEntity;
+        }
+    }
 
 }

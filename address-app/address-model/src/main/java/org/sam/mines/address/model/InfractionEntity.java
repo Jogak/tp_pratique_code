@@ -4,6 +4,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -88,4 +89,54 @@ public class InfractionEntity {
     @JoinColumn(name = "criminalrecordid", referencedColumnName = "id")
     private CriminalRecordEntity criminalRecordEntity;
     */
+
+    public static final class InfractionBuilder {
+        private UUID id;
+        private String place;
+        private String description;
+        private String mobile;
+        private int number;
+
+        private InfractionBuilder() {
+        }
+
+        public static InfractionEntity.InfractionBuilder aInfraction() {
+            return new InfractionBuilder();
+        }
+
+        public InfractionEntity.InfractionBuilder withId(UUID id) {
+            this.id = id;
+            return this;
+        }
+
+        public InfractionEntity.InfractionBuilder withPlace(String place) {
+            this.place = place;
+            return this;
+        }
+
+        public InfractionEntity.InfractionBuilder withName(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public InfractionEntity.InfractionBuilder withMobile(String mobile) {
+            this.mobile = mobile;
+            return this;
+        }
+
+        public InfractionEntity.InfractionBuilder withNumber(int number) {
+            this.number = number;
+            return this;
+        }
+
+        public InfractionEntity build() {
+            var infraction = new InfractionEntity();
+            infraction.setId(id);
+            infraction.setPlace(place);
+            infraction.setNumber(number);
+            infraction.setMobile(mobile);
+            infraction.setDescription(description);
+            return infraction;
+        }
+    }
 }

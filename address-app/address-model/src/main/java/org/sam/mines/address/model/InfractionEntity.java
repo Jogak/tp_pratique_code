@@ -114,7 +114,7 @@ public class InfractionEntity {
             return this;
         }
 
-        public InfractionEntity.InfractionBuilder withName(String description) {
+        public InfractionEntity.InfractionBuilder withDescription(String description) {
             this.description = description;
             return this;
         }

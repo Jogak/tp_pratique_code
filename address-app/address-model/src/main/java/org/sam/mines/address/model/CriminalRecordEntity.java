@@ -12,7 +12,7 @@ public class CriminalRecordEntity {
     private UUID id;
     private String ref;
     private UUID idnumber;
-
+    private String number;
 
     public void setId(UUID id) {
         this.id = id;

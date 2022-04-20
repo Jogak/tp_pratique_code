@@ -42,7 +42,7 @@ public class CondamnationServiceImplTest {
         // THEN
         assertEquals(2, all.size());
     }
-
+    /*
     @Test
     void shouldGetById() {
         // GIVEN
@@ -55,11 +55,11 @@ public class CondamnationServiceImplTest {
         Optional<CondamnationEntity> condamnation = condamnationService.get(id);
 
         // THEN
-        /*assertTrue(condamnation.isPresent());
+        assertTrue(condamnation.isPresent());
 
         CondamnationEntity condamnation1 = condamnation.get();
         assertEquals(150, condamnation1.getComdamnationDurationDay());
 
-        assertFalse(condamnationService.get(UUID.randomUUID()).isPresent());*/
-    }
+        assertFalse(condamnationService.get(UUID.randomUUID()).isPresent());
+    }*/
 }

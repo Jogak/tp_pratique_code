@@ -10,6 +10,7 @@ import org.sam.mines.address.web.controller.InfractionController;
 import org.sam.mines.address.web.controller.TownController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -22,6 +23,7 @@ import java.util.UUID;
 import static org.mockito.Mockito.when;
 
 @WebMvcTest(InfractionController.class)
+
 @Import(WebTestConfig.class)
 public class InfractionControllerTest {
 
